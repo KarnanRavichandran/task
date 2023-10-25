@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useNotes, useState} from 'react'
+import Header from './components/Header/Header';
+import CretaeNote from './components/CreateNote/CretaeNote';
+import Note from "./components/Note/Note";
+import Footer from './components/Footer/Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const [notes,setNotes] = useState([])
+
+
+  const addnote = (newNote)=>{
+    setNotes((prevNotes)=>{
+      return[...prevNotes,newNote]
+    })
+  }
+  console.log('notes',notes)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className='app'>
+        <Header />
+        <CretaeNote addnote ={addnote} />
+       {notes.map((note)=>{
+        return(
+          <Note title ={note.title} content ={note.content} />
+        )
+       })}
+        <Footer />
+      </div>
+    </>
   );
 }
 
